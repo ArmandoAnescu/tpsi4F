@@ -34,5 +34,5 @@ int main(int argc, char *argv[])
         write(fd[1], numeri, 20);
         close(fd[1]);
     }
-    return 8;
+    return 0;
 }
