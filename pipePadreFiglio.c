@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
         int numeri[MAX];
         close(fd[1]);
         printf("Ciao sono il padre, mio PID=%d, PID mio figlio= %d \n", getpid(), p);
-        read(fd[0], numeri, sizeof(numeri));
+        read(fd[0], numeri, sizeof(int)*MAX);
         printf("Inserisci il numero che deve moltiplicare \n");
         scanf("%d", &moltiplicatore);
         for (int i = 0; i < MAX; i++)
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
             printf("Inserisci il %d numero \n", i + 1);
             scanf("%d", &numeri[i]);
         }
-        write(fd[1], numeri, sizeof(numeri));
+        write(fd[1], numeri, sizeof(int)*MAX);
         close(fd[1]);
     }
     return 0;
