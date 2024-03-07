@@ -21,11 +21,12 @@ int main(int argc, char *argv[])
     do
     {
         read(fd1, lettura, sizeof(BUFFER_SIZE));
-        printf("Chatter 1: %s \n",lettura);
-        printf("chatter 2: ");
+        printf("Chatter 1: %s \n", lettura);
+        printf("Chatter 2: ");
         scanf("%s", scrittura);
-        write(fd2,scrittura,sizeof(scrittura));
-    } while (strcmp(lettura, "HALT")!=0);
+        write(fd2, scrittura, sizeof(scrittura));
+        
+    } while (strcmp(lettura, "HALT") != 0);
     close(fd1);
     close(fd2);
     return 0;

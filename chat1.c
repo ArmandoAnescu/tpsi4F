@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
     scanf("%s", scrittura);
     write(fd1, scrittura, sizeof(scrittura));
     do
-    {
+    {        
         read(fd2, lettura, sizeof(BUFFER_SIZE));
         printf("Chatter 2: %s \n", lettura);
         printf("Chatter 1: ");
