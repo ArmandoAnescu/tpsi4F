@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         fwrite(&datiInseriti, sizeof(datiInseriti), 1, destinazione);
         fclose(destinazione);
         printf("Longitudine: %.2lf, latitudine: %.2lf, nome città: %s \n", datiInseriti.longitudine, datiInseriti.latitudine, datiInseriti.citta);
-        write(fd[1],datiInseriti.citta,sizeof(datiInseriti.citta));
+        write(fd[1],argv[1],sizeof(argv[1]));
         close(fd[1]);
         wait(0);
     }
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         read(fd[0], buffer, sizeof(buffer));
         FILE *destinazione;
         GPS verifica;
-        destinazione = fopen(argv[1], "r");
+        destinazione = fopen(buffer, "r");
         printf("Sono il processo figlio con PID %d, mio padre ha PID %d \n", getpid(), getppid());
         fread(&verifica, sizeof(verifica), 1, destinazione);
         fclose(destinazione);
