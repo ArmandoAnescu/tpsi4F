@@ -5,6 +5,8 @@
         "wait.h": "c",
         "stdlib.h": "c",
         "stat.h": "c",
-        "fcntl.h": "c"
+        "fcntl.h": "c",
+        "types.h": "c",
+        "stdio.h": "c"
     }
 }
