@@ -29,18 +29,18 @@ int main(int argc, char *argv[])
         printf("IL MIO PID =%d \n", getpid());
         wait(status);
     }
-    else // if (p == 0)
+    else if (p == 0)
     {
         printf("Hey \n");
         char str[20];
         sprintf(str,"%d",stud.eta);
         execl("./LeggiStud", stud.nome, stud.cognome,str,NULL);
     }
-    // else
-    // {
-    //     printf("Errore fork \n");
-    //     exit(-1);
-    // }
+    else
+    {
+        printf("Errore fork \n");
+        exit(-1);
+    }
 
     return 0;
 }
