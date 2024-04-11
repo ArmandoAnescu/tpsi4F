@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
     if (p != 0) // padre
     {
         int status;
-        // int fd = open("passaStud", O_WRONLY);
-        // write(fd, &stud, sizeof(stud));
         printf("IL MIO PID =%d \n", getpid());
         wait(status);
     }
