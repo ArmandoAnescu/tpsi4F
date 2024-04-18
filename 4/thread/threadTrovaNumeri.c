@@ -9,38 +9,30 @@ Creare un programma che:
 3 - crea un altro thread per ricercare il numero otto nella seconda metà dell'array.
 Il thread che trova il numero otto deve stampare la posizione che occupa nell'array.
 */
-int len = 10;
+#define LEN 10
+int array[] = {1, 2, 3, 5, 6, 9, 12, 34, 65, 234, 1, 2, 3, 5, 6, 9, 12, 8, 65, 234, 1, 2, 3, 5, 6, 9, 12, 34, 65, 234, 1, 2, 3, 5, 6, 9, 12, 34, 65, 234};
 
-void *ricercaPrimaParte(void *par)
+void *ricerca(void *par)
 {
-    int *array = (int *)par;
-    for (int i = 0; i < (len / 2); i++)
+    int *indice = (int *)par;
+    for (int i =indice[0] ; i < indice[1]; i++)
     {
         if (array[i] == 8)
         {
-            printf("Il numero si trova alla psozione %d \n", i + 1);
+            printf("Il numero si trova alla posizione %d \n", i + 1);
         }
     }
+    pthread_exit(NULL);
     return (void *)0;
 }
-void *ricercaSecondaParte(void *par)
-{
-    int *array = (int *)par;
-    for (int i = len / 2; i < len; i++)
-    {
-        if (array[i] == 8)
-        {
-            printf("Il numero si trova alla psozione %d \n", i + 1);
-        }
-    }
-    return (void *)0;
-}
+
 int main()
 {
-    int array[10] = {1, 2, 3, 5, 8, 9, 12, 34, 65, 234};
+    int primaParte[] = {0, LEN / 2};
+    int secondaParte[] = {LEN/2,};
     pthread_t threadPrima, threadSeconda;
-    pthread_create(&threadPrima, NULL, &ricercaPrimaParte, (int *)array);
-    pthread_create(&threadSeconda, NULL, &ricercaSecondaParte, (int *)array);
+    pthread_create(&threadPrima, NULL, &ricerca, (int *)primaParte);
+    pthread_create(&threadSeconda, NULL, &ricerca, (int *) secondaParte);
     pthread_join(threadPrima, NULL);
     pthread_join(threadSeconda, NULL);
     return 0;

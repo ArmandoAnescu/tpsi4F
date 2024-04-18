@@ -18,18 +18,22 @@ typedef struct
 
 void *stampaStudente(void *par)
 {
-    Studente *stud = (Studente *)par;
+    Studente *stud = (Studente *)par;// Studente stud =*(Studente *)par;
     printf("Nome: %s \n", stud->nome);
     printf("Cognome: %s \n", stud->cognome);
-    printf("media:%2.f \n", stud->media);
+    printf("media:%.1f \n", stud->media);
     printf("Classe:%d \n", stud->classe);
     return (void *)0;
 }
 void *fileStudente(void *par)
 {
     Studente *stud = (Studente *)par;
-    FILE *file;
-    file = fopen("Studente.txt", "w");
+    FILE *file = fopen("Studente.txt", "w");
+    if (file == NULL)
+    {
+        printf("Errore apertura file");
+        return (void *)-1;
+    }
     fprintf(file, "%s %s media:%2.f classe:%d", stud->cognome, stud->cognome, stud->media, stud->classe);
     fclose(file);
     return (void *)0;
