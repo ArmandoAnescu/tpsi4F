@@ -29,11 +29,12 @@ void *ricerca(void *par)
 int main()
 {
     int primaParte[] = {0, LEN / 2};
-    int secondaParte[] = {LEN/2,};
+    int secondaParte[] = {LEN/2,LEN};
     pthread_t threadPrima, threadSeconda;
     pthread_create(&threadPrima, NULL, &ricerca, (int *)primaParte);
     pthread_create(&threadSeconda, NULL, &ricerca, (int *) secondaParte);
     pthread_join(threadPrima, NULL);
     pthread_join(threadSeconda, NULL);
+    
     return 0;
 }

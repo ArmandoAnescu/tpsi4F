@@ -78,14 +78,19 @@ int main(int argc, char *argv[])
     pthread_t threadLettura, threadScrittura;
     pthread_mutex_init(&critical, NULL);
     pthread_mutex_init(&mutex, NULL);
+
     pthread_cond_init(&not_empty, NULL);
     pthread_cond_init(&not_full, NULL);
+
     pthread_create(&threadLettura, NULL, &lettura, nomeLettura);
     pthread_create(&threadScrittura, NULL, &scrittura, nomeScrittura);
+
     pthread_join(threadLettura, NULL);
     pthread_join(threadScrittura, NULL);
+
     pthread_mutex_destroy(&critical);
     pthread_mutex_destroy(&mutex);
+    
     pthread_cond_destroy(&not_empty);
     pthread_cond_destroy(&not_full);
     return 0;
