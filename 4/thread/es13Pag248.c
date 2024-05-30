@@ -3,19 +3,20 @@
 #include <string.h>
 #include <pthread.h>
 #include <time.h>
+#include <stdbool.h>
 int n;
-#define BUFFER_DIM 1024
 #define NUM_SLICES 16
 typedef struct
 {
-    unsigned char buffer[BUFFER_DIM];
+    unsigned char buffer;
     int n;
 } BUFFER;
+
 BUFFER ring_buffer[NUM_SLICES];
 int write_index = 0;
 int read_index = 0;
 int N_inseriti = 0;
-int fineGenerazione = 0;
+bool fine=false;
 pthread_mutex_t mutex;
 pthread_cond_t not_full, not_empty;
 void *generazione(void *par)
@@ -37,18 +38,18 @@ void *generazione(void *par)
         pthread_cond_signal(&not_full);
         pthread_mutex_unlock(&mutex);
     }
-    fineGenerazione = 1;
+    bool fine=true;
     pthread_exit(NULL);
 }
 void *scrittura(void *par)
 {
-    while (fineGenerazione == 0)
+    while (!fine|| N_inseriti>0)
     {
         pthread_mutex_lock(&mutex);
         if (N_inseriti > 0)
         {
             printf("%d \n", ring_buffer[read_index].buffer);
-            write_index = (write_index + 1) % NUM_SLICES;
+            read_index = (read_index + 1) % NUM_SLICES;
             N_inseriti--;
         }
         else
