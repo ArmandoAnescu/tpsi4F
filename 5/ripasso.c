@@ -46,7 +46,7 @@ void StampaNumeri(int array[], int n)
 }
 void StampaInverti(int array[], int n)
 {
-    for (int i = n - 1; i <= 0; i--)
+    for (int i = n - 1; i >= 0; i--)
     {
         printf("Il %d numero è %d \n", n - n + 1, array[i]);
     }
@@ -124,11 +124,27 @@ int EliminaNumero(int array[], int n)
 void Scambio(int array[], int n)
 {
     int support;
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < n; i += 2)
     {
         support = array[i];
         array[i] = array[i + 1];
         array[i + 1] = support;
+    }
+}
+void Ordinamento(int array[], int n)
+{
+    int support;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (array[j]>array[j+1])
+            {
+                support = array[j];
+                array[j] = j + 1;
+                array[j + 1] = support;
+            }
+        }
     }
 }
 void Scelta(int scelta, int array[], int n)
