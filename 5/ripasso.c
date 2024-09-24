@@ -36,34 +36,7 @@ void GeneraNumeri(int array[], int n) // genero i numeri casuali in base all'inp
         array[i] = rand() % 501;
     }
 }
-void Scelta(int scelta, int array[], int n)
-{
-    switch (scelta)
-    {
-    case 1:
-        StampaNumeri(array, n);
-        break;
-    case 2:
-        StampaInverti(array, n);
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
-    case 5:
-        break;
-    case 6:
-        break;
-    case 7:
-        break;
-    case 8:
-        break;
-    case 9:
-        break;
-    default:
-        break;
-    }
-}
+
 void StampaNumeri(int array[], int n)
 {
     for (int i = 0; i < n; i++)
@@ -78,7 +51,7 @@ void StampaInverti(int array[], int n)
         printf("Il %d numero è %d \n", n - n + 1, array[i]);
     }
 }
-void StampamediaESomma(int array[], int n)
+void StampaMediaESomma(int array[], int n)
 {
     int somma = 0;
     float media;
@@ -111,7 +84,7 @@ void StampaDispari(int array[], int n)
         }
     }
 }
-void CercaNumero(int array[], int n)
+int CercaNumero(int array[], int n)
 {
     int cerca;
     printf("Che numero vuoi cercare? \n");
@@ -121,12 +94,13 @@ void CercaNumero(int array[], int n)
         if (array[i] == cerca)
         {
             printf("Numero trovato \n");
-            exit(1);
+            return 0;
         }
     }
     printf("Numero non trovato \n");
+    return -1;
 }
-void EliminaNumero(int array[], int n)
+int EliminaNumero(int array[], int n)
 {
     int cerca;
     printf("Che numero vuoi eliminare? \n");
@@ -137,21 +111,58 @@ void EliminaNumero(int array[], int n)
         {
             for (int j = i; j < n; j++)
             {
-                array[j]=array[j+1];
+                array[j] = array[j + 1];
             }
             n--;
             printf("Numero eliminato \n");
-            exit(1);
+            return 0;
         }
     }
     printf("Numero non trovato \n");
+    return -1;
 }
-void Scambio(int array[], int n){
+void Scambio(int array[], int n)
+{
     int support;
-    for(int i=0;i<n;i++){
-        support=array[i];
-        array=array[i+1];
-        array[i+1]=support;
+    for (int i = 0; i < n; i++)
+    {
+        support = array[i];
+        array[i] = array[i + 1];
+        array[i + 1] = support;
+    }
+}
+void Scelta(int scelta, int array[], int n)
+{
+    switch (scelta)
+    {
+    case 1:
+        StampaNumeri(array, n);
+        break;
+    case 2:
+        StampaInverti(array, n);
+        break;
+    case 3:
+        StampaMediaESomma(array, n);
+        break;
+    case 4:
+        StampaPari(array, n);
+        break;
+    case 5:
+        StampaDispari(array, n);
+        break;
+    case 6:
+        CercaNumero(array, n);
+        break;
+    case 7:
+        EliminaNumero(array, n);
+        break;
+    case 8:
+        Scambio(array, n);
+        break;
+    case 9:
+        break;
+    default:
+        break;
     }
 }
 int main()
