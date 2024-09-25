@@ -53,7 +53,7 @@ void CreaStringhePariDispari(char stringa[])
             nDispari++;
         }
     }
-    stringaPari[nPari] = '\0';  
+    stringaPari[nPari] = '\0';
     stringaDispari[nDispari] = '\0';
     printf("Stringa pari %s \n", stringaPari);
     printf("Stringa dispari %s \n", stringaDispari);
@@ -77,6 +77,17 @@ void ControlloDoppie(char stringa[])
         printf("Non ci sono doppie \n");
     }
 }
+void ComparaLunghezza(char str1[], char str2[])
+{
+    if (strlen(str1) > strlen(str2))
+    {
+        printf("la prima stringa è più lunga della seconda \n");
+    }
+    else
+    {
+        printf("la prima stringa è più corta della seconda \n");
+    }
+}
 int main()
 {
     char stringa1[30];
@@ -90,5 +101,9 @@ int main()
     ContaLettera(stringa1, carattere);
     CreaStringhePariDispari(stringa1);
     ControlloDoppie(stringa1);
+    char stringa2[30];
+    printf("Inserisci la prima stringa \n");
+    scanf("%s", stringa2);
+    ComparaLunghezza(stringa1, stringa2);
     return 0;
 }
