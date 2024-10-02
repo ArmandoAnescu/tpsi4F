@@ -19,16 +19,51 @@ typedef struct Libro
 {
     char Autore[30];
     char Titolo[30];
+    char Categoria[30];
     int anno;
-    double prezzo;
-}Libro;
+    float prezzo;
+} Libro;
 typedef struct Categoria
 {
     char nomeCategoria[30];
     Libro libri[40];
-    int contatore=0;
-};
+    int contatore;
+} Categoria;
 
-int main(){
+void LetturaLibri(Libro librilettura[],const char *nomeFile)
+{
+    int n = 0;
+    FILE *fLibri= fopen(nomeFile, "r");
+    if (fLibri == NULL)
+    {
+        printf("Errore apertura file!\n");
+        exit(1);
+    }
+    while (!feof(fLibri))
+    {
+        Libro libro;
+        fscanf(fLibri, "%29[^,],%29[^,],%d,%f,%29[^\n]", libro.Autore, libro.Titolo, &libro.anno, &libro.prezzo, libro.Categoria);
+        librilettura[n]=libro;
+        n++;
+    }
+    fclose(fLibri);
+    for (int i = 0; i < n; i++)
+    {
+        printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%d \n",librilettura[i].Titolo, librilettura[i].Autore, &librilettura[i].anno, librilettura[i].Categoria, &librilettura[i].prezzo);
+    }
+}
+Visualizza(){
+
+}
+int main(char *argv[], int argc)
+{
+    const char *filename="libri.csv";
+    // if (argc != 2)
+    // {
+    //     printf("Nome file non inserito!!\n");
+    //     exit(-1);
+    // }
+    Libro librilettura[50];
+    LetturaLibri(librilettura,filename);
     return 0;
 }
