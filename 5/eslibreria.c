@@ -11,6 +11,24 @@ Buon lavoro!La consegna dovrà contenere il codice (su git) e una relazione dett
 
 In allegato, qui, trovate il file da cui pescare i libri per popolare correttamente la libreria.
 */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Libro
+{
+    char Autore[30];
+    char Titolo[30];
+    int anno;
+    double prezzo;
+}Libro;
+typedef struct Categoria
+{
+    char nomeCategoria[30];
+    Libro libri[40];
+    int contatore=0;
+};
+
 int main(){
-    return0;
+    return 0;
 }
