@@ -18,8 +18,8 @@ In allegato, qui, trovate il file da cui pescare i libri per popolare correttame
 typedef struct Libro
 {
     char Autore[30];
-    char Titolo[30];
-    char Categoria[30];
+    char Titolo[40];
+    char Categoria[40];
     int anno;
     float prezzo;
 } Libro;
@@ -38,16 +38,13 @@ void Visualizza()
         printf("\n Categoria: %s \n \n", libreria[i].nomeCategoria);
         for (int j = 0; j < libreria[i].contatore; j++)
         {
-            printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%d \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, libreria[i].libri[j].prezzo);
+            printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%f \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, libreria[i].libri[j].prezzo);
         }
     }
 }
 int CercaCategoria(char incognita[], int nCategorie)
 {
-    if (nCategorie == 0)
-    {
-        return 0;
-    }
+   
 
     for (int i = 0; i < nCategorie; i++)
     {
@@ -70,7 +67,7 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     while (!feof(fLibri))
     {
         Libro libro;
-        fscanf(fLibri, "%29[^,],%29[^,],%d,%f,%39[^\n]", libro.Titolo, libro.Autore, &libro.anno, &libro.prezzo, libro.Categoria);
+        fscanf(fLibri, "%39[^,],%29[^,],%d,%f,%39[^\n]", libro.Titolo, libro.Autore, &libro.anno, &libro.prezzo, libro.Categoria);
         librilettura[n] = libro;
         n++;
     }
@@ -81,7 +78,7 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     for (int i = 0; i < n; i++)
     {
         controlloCat = CercaCategoria(librilettura[i].Categoria, categorieEsitenti);
-        if (controlloCat > 0)
+        if (controlloCat !=-1)
         {
             libreria[controlloCat].libri[libreria[controlloCat].contatore] = librilettura[i];
             libreria[controlloCat].contatore++;
@@ -94,18 +91,13 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
             categorieEsitenti++;
         }
     }
-    Visualizza();
 }
 
-int main(char *argv[], int argc)
+int main( int argc,char *argv[])
 {
     const char *filename = "libri.csv";
-    // if (argc != 2)
-    // {
-    //     printf("Nome file non inserito!!\n");
-    //     exit(-1);
-    // }
     Libro librilettura[50];
     LetturaLibri(librilettura, filename);
+    Menu()
     return 0;
 }
