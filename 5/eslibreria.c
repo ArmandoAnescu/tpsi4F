@@ -52,12 +52,12 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     for (int i = 0; i < n; i++)
     {
         controlloCat = 0;
-        for (int j = 0; j < MAX_CATEGORIE; j++)
+        for (int j = 0; j < categorieEsitenti; j++)
         {
-            if (libreria[j].nomeCategoria == librilettura[i].Categoria)
+            if (strcmp(libreria[j].nomeCategoria, librilettura[i].Categoria)==0)
             {
                 libreria[categorieEsitenti].libri[libreria->contatore] = librilettura[i];
-                libreria->contatore++;
+                libreria[categorieEsitenti].contatore++;
                 controlloCat = 1;
                 break;
             }
@@ -71,13 +71,14 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
             strcpy(libreria[categorieEsitenti].nomeCategoria,librilettura[i].Categoria);
             libreria[categorieEsitenti].libri[libreria[categorieEsitenti].contatore] = librilettura[i];
             libreria[categorieEsitenti].contatore++;
+            categorieEsitenti++;
         }
     }
     Visualizza();
 }
 Visualizza()
 {
-    printf("========LIBRERIA========");
+    printf("========LIBRERIA======== \n");
     for (int i = 0; i < MAX_CATEGORIE; i++)
     {
         printf("Categoria: %s \n",libreria[i].nomeCategoria);
