@@ -121,9 +121,9 @@ void Inserisci()
     printf("inserisci il titolo del libro \n");
     scanf("%s", inserimento.Titolo);
     printf("inserisci l'anno del libro \n");
-    scanf("%s", &inserimento.anno);
+    scanf("%d", &inserimento.anno);
     printf("inserisci il prezzo del libro \n");
-    scanf("%s", &inserimento.prezzo);
+    scanf("%f", &inserimento.prezzo);
     int pos = CercaCategoria(inserimento.Categoria);
     if (pos != -1)
     {
