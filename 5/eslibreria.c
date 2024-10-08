@@ -25,11 +25,39 @@ typedef struct Libro
 } Libro;
 typedef struct Categoria
 {
-    char nomeCategoria[30];
+    char nomeCategoria[40];
     Libro libri[40];
     int contatore;
 } Categoria;
 Categoria libreria[30];
+void Visualizza()
+{
+    printf("========LIBRERIA======== \n");
+    for (int i = 0; i < MAX_CATEGORIE; i++)
+    {
+        printf("\n Categoria: %s \n \n", libreria[i].nomeCategoria);
+        for (int j = 0; j < libreria[i].contatore; j++)
+        {
+            printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%d \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, libreria[i].libri[j].prezzo);
+        }
+    }
+}
+int CercaCategoria(char incognita[], int nCategorie)
+{
+    if (nCategorie == 0)
+    {
+        return 0;
+    }
+
+    for (int i = 0; i < nCategorie; i++)
+    {
+        if (strcmp(libreria[i].nomeCategoria, incognita))
+        {
+            return i;
+        }
+    }
+    return -1;
+}
 void LetturaLibri(Libro librilettura[], const char *nomeFile)
 {
     int n = 0;
@@ -42,33 +70,30 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     while (!feof(fLibri))
     {
         Libro libro;
-        fscanf(fLibri, "%29[^,],%29[^,],%d,%f,%29[^\n]", libro.Autore, libro.Titolo, &libro.anno, &libro.prezzo, libro.Categoria);
+        fscanf(fLibri, "%29[^,],%29[^,],%d,%f,%39[^\n]", libro.Titolo, libro.Autore, &libro.anno, &libro.prezzo, libro.Categoria);
         librilettura[n] = libro;
         n++;
     }
     fclose(fLibri);
+    for (int i = 0; i < n; i++)
+    {
+        printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%f \n", librilettura[i].Titolo, librilettura[i].Autore, librilettura[i].anno, librilettura[i].Categoria, librilettura[i].prezzo);
+    }
+    printf("\n \n");
     int controlloCat = 0;
     int categorieEsitenti = 0;
     for (int i = 0; i < n; i++)
     {
-        controlloCat = 0;
-        for (int j = 0; j < categorieEsitenti; j++)
+        controlloCat = CercaCategoria(librilettura[i].Categoria, categorieEsitenti);
+        if (controlloCat > -1)
         {
-            if (strcmp(libreria[j].nomeCategoria, librilettura[i].Categoria)==0)
-            {
-                libreria[categorieEsitenti].libri[libreria->contatore] = librilettura[i];
-                libreria[categorieEsitenti].contatore++;
-                controlloCat = 1;
-                break;
-            }
-            else
-            {
-                controlloCat = 0;
-            }
+            libreria[controlloCat].libri[libreria[categorieEsitenti].contatore] = librilettura[i];
+            libreria[controlloCat].contatore++;
+            categorieEsitenti++;
         }
-        if (controlloCat != 1)
+        else
         {
-            strcpy(libreria[categorieEsitenti].nomeCategoria,librilettura[i].Categoria);
+            strcpy(libreria[categorieEsitenti].nomeCategoria, librilettura[i].Categoria);
             libreria[categorieEsitenti].libri[libreria[categorieEsitenti].contatore] = librilettura[i];
             libreria[categorieEsitenti].contatore++;
             categorieEsitenti++;
@@ -76,18 +101,7 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     }
     Visualizza();
 }
-Visualizza()
-{
-    printf("========LIBRERIA======== \n");
-    for (int i = 0; i < MAX_CATEGORIE; i++)
-    {
-        printf("Categoria: %s \n",libreria[i].nomeCategoria);
-        for (int j = 0; i < libreria[i].contatore; i++)
-        {
-            printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%d \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, &libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, &libreria[i].libri[j].prezzo);
-        }
-    }
-}
+
 int main(char *argv[], int argc)
 {
     const char *filename = "libri.csv";
