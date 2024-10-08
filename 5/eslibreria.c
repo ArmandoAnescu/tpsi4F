@@ -14,7 +14,7 @@ In allegato, qui, trovate il file da cui pescare i libri per popolare correttame
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#define MAX_CATEGORIE 20
 typedef struct Libro
 {
     char Autore[30];
@@ -29,11 +29,11 @@ typedef struct Categoria
     Libro libri[40];
     int contatore;
 } Categoria;
-
-void LetturaLibri(Libro librilettura[],const char *nomeFile)
+Categoria libreria[30];
+void LetturaLibri(Libro librilettura[], const char *nomeFile)
 {
     int n = 0;
-    FILE *fLibri= fopen(nomeFile, "r");
+    FILE *fLibri = fopen(nomeFile, "r");
     if (fLibri == NULL)
     {
         printf("Errore apertura file!\n");
@@ -43,27 +43,59 @@ void LetturaLibri(Libro librilettura[],const char *nomeFile)
     {
         Libro libro;
         fscanf(fLibri, "%29[^,],%29[^,],%d,%f,%29[^\n]", libro.Autore, libro.Titolo, &libro.anno, &libro.prezzo, libro.Categoria);
-        librilettura[n]=libro;
+        librilettura[n] = libro;
         n++;
     }
     fclose(fLibri);
+    int controlloCat = 0;
+    int categorieEsitenti = 0;
     for (int i = 0; i < n; i++)
     {
-        printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%d \n",librilettura[i].Titolo, librilettura[i].Autore, &librilettura[i].anno, librilettura[i].Categoria, &librilettura[i].prezzo);
+        controlloCat = 0;
+        for (int j = 0; j < MAX_CATEGORIE; j++)
+        {
+            if (libreria[j].nomeCategoria == librilettura[i].Categoria)
+            {
+                libreria[categorieEsitenti].libri[libreria->contatore] = librilettura[i];
+                libreria->contatore++;
+                controlloCat = 1;
+                break;
+            }
+            else
+            {
+                controlloCat = 0;
+            }
+        }
+        if (controlloCat != 1)
+        {
+            strcpy(libreria[categorieEsitenti].nomeCategoria,librilettura[i].Categoria);
+            libreria[categorieEsitenti].libri[libreria[categorieEsitenti].contatore] = librilettura[i];
+            libreria[categorieEsitenti].contatore++;
+        }
     }
+    Visualizza();
 }
-Visualizza(){
-
+Visualizza()
+{
+    printf("========LIBRERIA========");
+    for (int i = 0; i < MAX_CATEGORIE; i++)
+    {
+        printf("Categoria: %s \n",libreria[i].nomeCategoria);
+        for (int j = 0; i < libreria[i].contatore; i++)
+        {
+            printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%d \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, &libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, &libreria[i].libri[j].prezzo);
+        }
+    }
 }
 int main(char *argv[], int argc)
 {
-    const char *filename="libri.csv";
+    const char *filename = "libri.csv";
     // if (argc != 2)
     // {
     //     printf("Nome file non inserito!!\n");
     //     exit(-1);
     // }
     Libro librilettura[50];
-    LetturaLibri(librilettura,filename);
+    LetturaLibri(librilettura, filename);
     return 0;
 }
