@@ -30,10 +30,31 @@ typedef struct Categoria
     int contatore;
 } Categoria;
 Categoria libreria[30];
+int categorieEsitenti = 0;
+int Menu()
+{
+    int scelta;
+    printf("\n-----------------------------------\n");
+    printf("1) Inserisci libro\n");
+    printf("2) Visualizza libri\n");
+    printf("0) Visualizza libri\n");
+    printf("-----------------------------------\n");
+    printf("Inserisci una scelta:\n");
+    scanf("%d", &scelta);
+    if (scelta == 0)
+    {
+        return 0;
+    }
+    else
+    {
+        return scelta;
+    }
+}
+
 void Visualizza()
 {
     printf("========LIBRERIA======== \n");
-    for (int i = 0; i < MAX_CATEGORIE; i++)
+    for (int i = 0; i < categorieEsitenti; i++)
     {
         printf("\n Categoria: %s \n \n", libreria[i].nomeCategoria);
         for (int j = 0; j < libreria[i].contatore; j++)
@@ -42,13 +63,12 @@ void Visualizza()
         }
     }
 }
-int CercaCategoria(char incognita[], int nCategorie)
+int CercaCategoria(char incognita[])
 {
-   
 
-    for (int i = 0; i < nCategorie; i++)
+    for (int i = 0; i < categorieEsitenti; i++)
     {
-        if (strcmp(libreria[i].nomeCategoria, incognita)==0)
+        if (strcmp(libreria[i].nomeCategoria, incognita) == 0)
         {
             return i;
         }
@@ -74,11 +94,10 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
     fclose(fLibri);
     printf("\n \n");
     int controlloCat = 0;
-    int categorieEsitenti = 0;
     for (int i = 0; i < n; i++)
     {
-        controlloCat = CercaCategoria(librilettura[i].Categoria, categorieEsitenti);
-        if (controlloCat !=-1)
+        controlloCat = CercaCategoria(librilettura[i].Categoria);
+        if (controlloCat != -1)
         {
             libreria[controlloCat].libri[libreria[controlloCat].contatore] = librilettura[i];
             libreria[controlloCat].contatore++;
@@ -92,12 +111,75 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
         }
     }
 }
+void Inserisci()
+{
+    Libro inserimento;
+    printf("inserisci la categoria del libro \n");
+    scanf("%s", inserimento.Categoria);
+    printf("inserisci l'autore del libro \n");
+    scanf("%s", inserimento.Autore);
+    printf("inserisci il titolo del libro \n");
+    scanf("%s", inserimento.Titolo);
+    printf("inserisci l'anno del libro \n");
+    scanf("%s", &inserimento.anno);
+    printf("inserisci il prezzo del libro \n");
+    scanf("%s", &inserimento.prezzo);
+    int pos = CercaCategoria(inserimento.Categoria);
+    if (pos != -1)
+    {
+        libreria[pos].libri[libreria[pos].contatore] = inserimento;
+        libreria[pos].contatore++;
+    }
+    else
+    {
+        if (categorieEsitenti < MAX_CATEGORIE)
+        {
+            strcpy(libreria[categorieEsitenti].nomeCategoria, inserimento.Categoria);
+            libreria[categorieEsitenti].libri[libreria[categorieEsitenti].contatore] = inserimento;
+            libreria[categorieEsitenti].contatore++;
+            categorieEsitenti++;
+        }else
+        {
+            printf("Ci dispiace ma abbiamo raggiunto il nuemro massimo di categorie \n");
+        }
+    }
+}
+void Scelta(int scelta)
+{
+    switch (scelta)
+    {
+    case 1:
+        Inserisci();
+        break;
+    case 2:
+        Visualizza();
+        break;
+    case 3:
+    //visualizza in ase alla categoria
+        break;
+    case 4:
+        break;
+    }
+}
 
-int main( int argc,char *argv[])
+int main(int argc, char *argv[])
 {
     const char *filename = "libri.csv";
     Libro librilettura[50];
     LetturaLibri(librilettura, filename);
-    Menu()
+    int risultato;
+    do
+    {
+        risultato = Menu();
+        if (risultato != 0)
+        {
+            Scelta(risultato);
+        }
+        else
+        {
+            break;
+        }
+
+    } while (1);
     return 0;
 }

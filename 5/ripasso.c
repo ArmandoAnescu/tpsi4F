@@ -188,11 +188,11 @@ int main()
     scanf("%d", &n);
     int array[n];
     GeneraNumeri(array, n);
-    int risultato = 1;
+    int risultato ;
     do
     {
-        risultato = Menu();
-        if (risultato != 0)
+        
+        if (Menu() != 0)
         {
             Scelta(risultato, array, n);
         }
