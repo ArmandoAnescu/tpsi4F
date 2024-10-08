@@ -51,7 +51,7 @@ int CercaCategoria(char incognita[], int nCategorie)
 
     for (int i = 0; i < nCategorie; i++)
     {
-        if (strcmp(libreria[i].nomeCategoria, incognita))
+        if (strcmp(libreria[i].nomeCategoria, incognita)==0)
         {
             return i;
         }
@@ -75,21 +75,16 @@ void LetturaLibri(Libro librilettura[], const char *nomeFile)
         n++;
     }
     fclose(fLibri);
-    for (int i = 0; i < n; i++)
-    {
-        printf("Nome:%s Autore:%s Anno:%d Categoria:%s Prezzo:%f \n", librilettura[i].Titolo, librilettura[i].Autore, librilettura[i].anno, librilettura[i].Categoria, librilettura[i].prezzo);
-    }
     printf("\n \n");
     int controlloCat = 0;
     int categorieEsitenti = 0;
     for (int i = 0; i < n; i++)
     {
         controlloCat = CercaCategoria(librilettura[i].Categoria, categorieEsitenti);
-        if (controlloCat > -1)
+        if (controlloCat > 0)
         {
-            libreria[controlloCat].libri[libreria[categorieEsitenti].contatore] = librilettura[i];
+            libreria[controlloCat].libri[libreria[controlloCat].contatore] = librilettura[i];
             libreria[controlloCat].contatore++;
-            categorieEsitenti++;
         }
         else
         {
