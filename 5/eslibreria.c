@@ -15,6 +15,7 @@ In allegato, qui, trovate il file da cui pescare i libri per popolare correttame
 #include <stdlib.h>
 #include <string.h>
 #define MAX_CATEGORIE 20
+#define NOME_FILE "libri.csv"
 typedef struct Libro
 {
     char Autore[30];
@@ -60,7 +61,6 @@ void Visualizza()
 }
 int CercaCategoria(char incognita[])
 {
-
     for (int i = 0; i < categorieEsitenti; i++)
     {
         if (strcmp(libreria[i].nomeCategoria, incognita) == 0)
@@ -72,8 +72,11 @@ int CercaCategoria(char incognita[])
 }
 void VisualizzaCategoria(){
     char ricerca[40];
-    printf("Inserisci il nome della categoria che vuoi vedere \n");
-    scanf("%s",ricerca);
+    printf("Inserisci il nome della categoria che vuoi vedere\n");
+    getchar();
+    fgets(ricerca,sizeof(ricerca),stdin);
+    ricerca[strcspn(ricerca,"\n")]=0;
+    printf("%s",ricerca);
     int categoria=CercaCategoria(ricerca);
     if (categoria!=-1)
     {
@@ -103,11 +106,11 @@ void CercaTitolo(){
     }
     
 }
-void LetturaLibri(const char *nomeFile)
+void LetturaLibri()
 {
     Libro librilettura[50];
     int n = 0;
-    FILE *fLibri = fopen("libri.csv", "r");
+    FILE *fLibri = fopen(NOME_FILE, "r");
     if (fLibri == NULL)
     {
         printf("Errore apertura file!\n");
@@ -187,14 +190,14 @@ void Scelta(int scelta)
         VisualizzaCategoria();
         break;
     case 4:
+        CercaTitolo();
         break;
     }
 }
 
 int main(int argc, char *argv[])
 {
-    const char *filename = "libri.csv";
-    LetturaLibri( filename);
+    LetturaLibri();
     int risultato;
     do
     {
