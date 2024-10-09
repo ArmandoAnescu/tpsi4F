@@ -63,7 +63,7 @@ int CercaCategoria(char incognita[])
 {
     for (int i = 0; i < categorieEsitenti; i++)
     {
-        if (strcmp(libreria[i].nomeCategoria, incognita) == 0)
+        if (strcasecmp(libreria[i].nomeCategoria, incognita) == 0)
         {
             return i;
         }
@@ -76,7 +76,6 @@ void VisualizzaCategoria(){
     getchar();
     fgets(ricerca,sizeof(ricerca),stdin);
     ricerca[strcspn(ricerca,"\n")]=0;
-    printf("%s",ricerca);
     int categoria=CercaCategoria(ricerca);
     if (categoria!=-1)
     {
@@ -91,7 +90,10 @@ void VisualizzaCategoria(){
 }
 void CercaTitolo(){
     char titolo[30];
-    scanf("%s",titolo);
+    getchar();
+    fgets(titolo,sizeof(titolo),stdin);
+    titolo[strcspn(titolo,"\n")]='\0';
+    printf("%s \n",titolo);
     for (int i = 0; i < categorieEsitenti; i++)
     {
         for (int j = 0; j < libreria[i].contatore; i++)
