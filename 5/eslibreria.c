@@ -38,18 +38,12 @@ int Menu()
     printf("1) Inserisci libro\n");
     printf("2) Visualizza libri\n");
     printf("3) Visualizza categoria\n");
-    printf("4) Visualizza libri\n");
+    printf("4) Cerca titolo\n");
+    printf("0) Esci\n");
     printf("-----------------------------------\n");
     printf("Inserisci una scelta:\n");
     scanf("%d", &scelta);
-    if (scelta == 0)
-    {
-        return 0;
-    }
-    else
-    {
-        return scelta;
-    }
+    return scelta;
 }
 
 void Visualizza()
