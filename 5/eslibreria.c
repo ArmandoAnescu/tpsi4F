@@ -90,15 +90,16 @@ void VisualizzaCategoria(){
 }
 void CercaTitolo(){
     char titolo[30];
+    printf("inserisci il titolo da cercare \n");
     getchar();
     fgets(titolo,sizeof(titolo),stdin);
-    titolo[strcspn(titolo,"\n")]='\0';
-    printf("%s \n",titolo);
+    titolo[strcspn(titolo,"\n")]=0;
+    printf("%s",titolo);
     for (int i = 0; i < categorieEsitenti; i++)
     {
-        for (int j = 0; j < libreria[i].contatore; i++)
+        for (int j = 0; j < libreria[i].contatore; j++)
         {
-            if (strcmp(libreria[i].libri[j].Titolo,titolo)==0)
+            if (strcasecmp(libreria[i].libri[j].Titolo,titolo)==0)
             {
                 printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%f \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, libreria[i].libri[j].prezzo);
             }
