@@ -92,7 +92,23 @@ void VisualizzaCategoria(){
     }
     
 }
-
+void CercaTitolo(){
+    char titolo[30];
+    scanf("%s",titolo);
+    for (int i = 0; i < categorieEsitenti; i++)
+    {
+        for (int j = 0; j < libreria[i].contatore; i++)
+        {
+            if (strcmp(libreria[i].libri[j].Titolo,titolo)==0)
+            {
+                printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%f \n", libreria[i].libri[j].Titolo, libreria[i].libri[j].Autore, libreria[i].libri[j].anno, libreria[i].libri[j].Categoria, libreria[i].libri[j].prezzo);
+            }
+            
+        }
+        
+    }
+    
+}
 void LetturaLibri(const char *nomeFile)
 {
     Libro librilettura[50];
