@@ -23,12 +23,12 @@ typedef struct Libro
     int anno;
     float prezzo;
 } Libro;
-typedef struct Categoria
-{
-    char nomeCategoria[40];
-    Libro libri[40];
-    int contatore;
-} Categoria;
+    typedef struct Categoria
+    {
+        char nomeCategoria[40];
+        Libro libri[40];
+        int contatore;
+    } Categoria;
 Categoria libreria[30];
 int categorieEsitenti = 0;
 int Menu()
@@ -37,7 +37,8 @@ int Menu()
     printf("\n-----------------------------------\n");
     printf("1) Inserisci libro\n");
     printf("2) Visualizza libri\n");
-    printf("0) Visualizza libri\n");
+    printf("3) Visualizza categoria\n");
+    printf("4) Visualizza libri\n");
     printf("-----------------------------------\n");
     printf("Inserisci una scelta:\n");
     scanf("%d", &scelta);
@@ -75,10 +76,28 @@ int CercaCategoria(char incognita[])
     }
     return -1;
 }
-void LetturaLibri(Libro librilettura[], const char *nomeFile)
+void VisualizzaCategoria(){
+    char ricerca[40];
+    printf("Inserisci il nome della categoria che vuoi vedere \n");
+    scanf("%s",ricerca);
+    int categoria=CercaCategoria(ricerca);
+    if (categoria!=-1)
+    {
+        for (int i = 0; i < libreria[categoria].contatore; i++)
+        {
+            printf("\n Nome:%s   Autore:%s    Anno:%d    Categoria:%s    Prezzo:%f \n", libreria[categoria].libri[i].Titolo, libreria[categoria].libri[i].Autore, libreria[categoria].libri[i].anno, libreria[categoria].libri[i].Categoria,libreria[categoria].libri[i].prezzo);
+        }
+    }else{
+        printf("Categoria inserita non esistente \n");
+    }
+    
+}
+
+void LetturaLibri(const char *nomeFile)
 {
+    Libro librilettura[50];
     int n = 0;
-    FILE *fLibri = fopen(nomeFile, "r");
+    FILE *fLibri = fopen("libri.csv", "r");
     if (fLibri == NULL)
     {
         printf("Errore apertura file!\n");
@@ -155,7 +174,7 @@ void Scelta(int scelta)
         Visualizza();
         break;
     case 3:
-    //visualizza in ase alla categoria
+        VisualizzaCategoria();
         break;
     case 4:
         break;
@@ -165,8 +184,7 @@ void Scelta(int scelta)
 int main(int argc, char *argv[])
 {
     const char *filename = "libri.csv";
-    Libro librilettura[50];
-    LetturaLibri(librilettura, filename);
+    LetturaLibri( filename);
     int risultato;
     do
     {
