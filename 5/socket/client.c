@@ -26,11 +26,12 @@ int main(int argc, char **argv)
     // scrivo sulla socket
     write(socketfd, stringa, sizeof(stringa));
     // leggo dal server
-    read(socketfd, nVocali, sizeof(nVocali));
+    read(socketfd, &nVocali, sizeof(nVocali));
     printf("\nNumero vocali: %d", nVocali);
-    read(socketfd, nConsonanti, sizeof(nConsonanti));
+    read(socketfd, &nConsonanti, sizeof(nConsonanti));
     printf("\nNumero vocali: %d", nConsonanti);
     // chiudo il client
     close(socketfd);
+    
     return 0;
 }

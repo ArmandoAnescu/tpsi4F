@@ -44,10 +44,12 @@ int main(int argc, char **argv)
             }
         }
         printf("Vocali : %d\n",contaVocali);
-        write(soa, contaVocali, sizeof(contaVocali));
+        write(soa, &contaVocali, sizeof(contaVocali));
         printf("Consonanti : %d\n",contaConsonanti);
-        write(soa, contaConsonanti, sizeof(contaConsonanti));
+        write(soa, &contaConsonanti, sizeof(contaConsonanti));
         close(soa);
+        contaConsonanti=0;
+        contaVocali=0;
     }
     return 0;
 }
