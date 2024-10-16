@@ -34,9 +34,11 @@ int main(int argc, char **argv)
         soa=accept(socketfd,(struct sockaddr*)&addr_remoto,&fromlen);
         //legge dal client
         read(soa,str,sizeof(str));
-        
         printf("Stringa ricevuta: %s\n",str);
-        strcpy(newstr,toupper(str));
+        for (int i = 0; i < strlen(str); i++)
+        {
+            newstr[i]=toupper(str[i]);
+        }
         printf("Stringa inviata : %s\n",newstr);
         write(soa, newstr, strlen(newstr));
         close(soa);
