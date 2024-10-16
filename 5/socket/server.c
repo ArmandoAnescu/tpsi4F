@@ -1,12 +1,13 @@
-#include <sys/types.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <string.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <errno.h>
-#include <ctype.h>
-#include <unistd.h>
+#include <stdio.h>       //std in-out
+#include <stdlib.h>      //per utilizzo di certe funzioni:htonl,rand,....
+#include <sys/socket.h>  //funz. accept+bind+listen
+#include <sys/types.h>   //funz. accept
+#include <netinet/in.h>  //definiscono la struttura degli indirizzi 
+#include <string.h>      //funz. stringhe
+#include <errno.h>       //gestioni errori connessione
+#include <ctype.h>       //bind
+#include <unistd.h>     // file header che consente l'accesso alle API dello standard POSIX
+
 
 #define DIM 40
 #define SERVERPORT 1313
@@ -35,18 +36,17 @@ int main(int argc, char **argv)
         printf("Stringa ricevuta: %s\n",str);
         for (int i = 0; i < strlen(str); i++)
         {
-            if (str[i]=="a"||str[i]=="e"||str[i]=="i"||str[i]=="o"||str[i]=="u")
+            if (str[i] == 'a' || str[i] == 'e' || str[i] == 'i' || str[i] == 'o' || str[i] == 'u')
             {
-                contaVocali++;
+                contaVocali++;//conto le coali e le consonanti
             }else{
                 contaConsonanti++;
             }
-            
         }
         printf("Vocali : %d\n",contaVocali);
-        write(soa, contaVocali, strlen(contaVocali));
-        printf("Vocali : %d\n",contaConsonanti);
-        write(soa, contaConsonanti, strlen(contaConsonanti));
+        write(soa, contaVocali, sizeof(contaVocali));
+        printf("Consonanti : %d\n",contaConsonanti);
+        write(soa, contaConsonanti, sizeof(contaConsonanti));
         close(soa);
     }
     return 0;
