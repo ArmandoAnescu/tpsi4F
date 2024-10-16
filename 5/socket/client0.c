@@ -17,8 +17,8 @@ int main(int argc,char** argv)
     struct sockaddr_in servizio;
      //inizializzazione dell'elemento di tipo sockaddr
     servizio.sin_family=AF_INET;
-    servizio.sin_addr.s_addr=htonl(INADDR_ANY); //  La funzione htonl accetta un numero a 32 bit in ordine di byte host e restituisce un numero a 32 bit nell'ordine dei byte di rete usato nelle reti TCP/IP (la famiglia di indirizzi AF_INET o AF_INET6).
-    servizio.sin_port=htons(SERVERPORT);       //La funzione htons accetta un numero a 16 bit nell'ordine dei byte host e restituisce un numero a 16 bit nell'ordine dei byte di rete usato nelle reti TCP/IP (la famiglia di indirizzi AF_INET o AF_INET6).
+    servizio.sin_addr.s_addr=htonl(INADDR_ANY);//La funzione htonl accetta un numero a 32 bit in ordine di byte host e restituisce un numero a 32 bit nell'ordine dei byte di rete usato nelle reti TCP/IP (la famiglia di indirizzi AF_INET o AF_INET6).
+    servizio.sin_port=htons(SERVERPORT);//La funzione htons accetta un numero a 16 bit nell'ordine dei byte host e restituisce un numero a 16 bit nell'ordine dei byte di rete usato nelle reti TCP/IP (la famiglia di indirizzi AF_INET o AF_INET6).
     char str1[DIM];     //Stringa da inviare
     int socketfd;// identificatore della socket
     //creazione e definizione del Socket di tipo stream tcp pg 163
