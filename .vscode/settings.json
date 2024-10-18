@@ -10,7 +10,8 @@
         "stdio.h": "c",
         "pthread.h": "c",
         "array": "c",
-        "in.h": "c"
+        "in.h": "c",
+        "ctype.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
