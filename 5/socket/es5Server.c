@@ -1,3 +1,9 @@
+/*
+Esercizio 5
+Scrivere il codice in C, di un applicazione Socket CLIENT-SERVER in cui il server riceve in input 1 stringa,
+e dopo aver effettuato gli eventuali ed opportuni controlli (se necessari), rispedisce al Client la stringa
+ordinata alfabeticamente (eliminando i caratteri speciali).
+*/
 #include <stdio.h>      //std in-out
 #include <stdlib.h>     //per utilizzo di certe funzioni:htonl,rand,....
 #include <sys/socket.h> //funz. accept+bind+listen
@@ -10,17 +16,23 @@
 
 #define DIM 40
 #define SERVERPORT 1313
-int ContaChar(char str[], char c)
+void RiordinaStringa(char str[])
 {
-    int contatore = 0;
-    for (int i = 0; i < strlen(str); i++)
+    int n=strlen(str);
+    char swap;
+    for (int i = 0; i < n - 1; i++)
     {
-        if (str[i] == c)
+        for (int j = 0; j < n - i - 1; j++)
         {
-            contatore++;
+            if (str[j] > str[j + 1])
+            {
+                // Scambia i caratteri
+                swap = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = swap;
+            }
         }
     }
-    return contatore;
 }
 int main(int argc, char **argv)
 {
@@ -41,9 +53,8 @@ int main(int argc, char **argv)
         fflush(stdout);
         soa = accept(socketfd, (struct sockaddr *)&addr_remoto, &fromlen);
         // legge dal client
-        read(soa, str, sizeof(str)-1);
-        printf("Stringa ricevuta: %s\n", str);
-        read(soa, &c, sizeof(c));
+        read(soa, str, sizeof(str));
+
         printf("Carattere ricevuto: %c\n", c);
         int cond = ContaChar(str, c);
         write(soa, &cond, sizeof(cond));

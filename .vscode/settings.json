@@ -11,7 +11,8 @@
         "pthread.h": "c",
         "array": "c",
         "in.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "errno.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
