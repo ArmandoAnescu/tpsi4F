@@ -25,7 +25,6 @@ int main(int argc, char **argv)
     printf("Inserisci la stringa\n");
     scanf("%s", stringa);
     write(socketfd, stringa, strlen(stringa)+1);
-    
     read(socketfd, strAlfabetica, sizeof(strAlfabetica));
     printf("La stringa in ordine alfabetica %s\n",strAlfabetica);
     close(socketfd);

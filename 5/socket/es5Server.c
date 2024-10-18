@@ -54,10 +54,8 @@ int main(int argc, char **argv)
         soa = accept(socketfd, (struct sockaddr *)&addr_remoto, &fromlen);
         // legge dal client
         read(soa, str, sizeof(str));
-
-        printf("Carattere ricevuto: %c\n", c);
-        int cond = ContaChar(str, c);
-        write(soa, &cond, sizeof(cond));
+        RiordinaStringa(str);
+        write(soa, &str, strlen(str));
         close(soa);
     }
     return 0;
